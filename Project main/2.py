@@ -1,4 +1,3 @@
-
 import yfinance as yf
 import pandas as pd
 import numpy as np
@@ -102,16 +101,17 @@ def normalize(x):
 # Usage
 if __name__ == '__main__':
     df = fetch_data('SPY', '2015-01-01', '2023-12-31')
-    df['Target'] = np.where(df['Close'].shift(-1) > df['Close'], 1, 0)
+    df['Target'] = np.where(df['Close'].shift(1) > df['Close'], 1, 0)
     df = compute_technical_indicators(df, 3, 14)
 
     features = ['SMA_14', 'EMA_14', 'RSI_14', 'Bollinger_Upper', 'Bollinger_Lower',
                 'MACD', 'MACD_Signal', 'Daily_Return', 'Rolling_5d_Std',
-                'Lag_1', 'Lag_2', 'Lag_3', 'Momentum_10','Target']
+                'Lag_1', 'Lag_2', 'Lag_3', 'Momentum_10','Target','Close']
 
     df = df[features]
     df = df.reset_index()
     df.dropna(inplace=True)
+    print(df.corr()['Target'].sort_values(ascending=False))
     X, Y, X_train, Y_train, X_test, Y_test = train_test_split(df.iloc[:, df.columns != 'Date'],
                                                               training_data_fraction=0.8,
                                                               return_numpy=True,
