@@ -2,9 +2,10 @@ import yfinance as yf
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from cvxopt import normal
-from fastjsonschema.ref_resolver import normalize
-
+from courselib.models.svm import BinaryKernelSVM
+import cvxopt
+import time
+import itertools
 from courselib.utils.splits import train_test_split
 from courselib.models.base import TrainableModel
 from courselib.utils.metrics import binary_accuracy, mean_squared_error, mean_absolute_error
@@ -96,13 +97,72 @@ class LinearSVM(TrainableModel):
 def normalize(x):
     return (x - np.mean(x, axis=0))/np.std(x,axis=0)
 
+class SpectrumKernel:
+    def __init__(self, k, X):
+        self.k = k
+        vocab = {c for seq in X for c in seq}
+        self.kmers = [''.join(kmer) for kmer in itertools.product(vocab, repeat=k)]
+
+    def feature_map(self, X):
+        Phi = np.zeros((len(X), len(self.kmers)))
+        for i, seq in enumerate(X):
+            for j, kmer in enumerate(self.kmers):
+                count = seq.count(kmer)
+                Phi[i, j] = count
+
+        return Phi
+
+
+    def __call__(self, X1, X2):
+        Phi1 = self.feature_map(X1)
+        Phi2 = self.feature_map(X2)
+        return Phi1 @ Phi2.T
+
+
+class Kernel:
+    def _check_shapes(self, X1, X2):
+        if X1.shape[-1] != X2.shape[-1]:
+            raise ValueError("Inputs must have the same number of features (last dimension).")
+
+        d = X1.shape[-1]
+        return X1.reshape(-1, d), X2.reshape(-1, d)
+
+
+class LinearKernel(Kernel):
+    def __call__(self, X1, X2):
+        X1_flat, X2_flat = self._check_shapes(X1, X2)
+        return (X1_flat @ X2_flat.T).reshape(X1.shape[:-1] + X2.shape[:-1])
+
+
+class PolynomialKernel(Kernel):
+    def __init__(self, degree=2, intercept=1):
+        self.degree = degree
+        self.intercept = intercept
+
+    def __call__(self, X1, X2):
+        X1_flat, X2_flat = self._check_shapes(X1, X2)
+        prod = (X1_flat @ X2_flat.T).reshape(X1.shape[:-1] + X2.shape[:-1])
+        return np.power(prod + self.intercept, self.degree)
+
+
+class RBFKernel(Kernel):
+    def __init__(self, sigma=1.0):
+        self.sigma = sigma
+
+    def __call__(self, X1, X2):
+        X1_flat, X2_flat = self._check_shapes(X1, X2)
+        diff = np.linalg.norm(
+            X1_flat[:, np.newaxis, :] - X2_flat[np.newaxis, :, :],
+            axis=-1
+        ).reshape(X1.shape[:-1] + X2.shape[:-1])
+        return np.exp(-diff ** 2 / (2 * self.sigma ** 2))
 
 
 # Usage
 if __name__ == '__main__':
     df = fetch_data('SPY', '2015-01-01', '2023-12-31')
     df['Trend'] = df['Close'].rolling(window=5).mean().shift(-1) > df['Close']
-    df['Target'] = df['Trend'].astype(int)
+    df['Target'] = np.where(df['Trend'], 1, -1)
     df = compute_technical_indicators(df, 3, 14)
 
     features = ['SMA_14', 'EMA_14', 'RSI_14', 'Bollinger_Upper', 'Bollinger_Lower',
@@ -112,43 +172,47 @@ if __name__ == '__main__':
     df = df[features]
     df = df.reset_index()
     df.dropna(inplace=True)
-    print(df.corr()['Target'].sort_values(ascending=False))
+
     X, Y, X_train, Y_train, X_test, Y_test = train_test_split(df.iloc[:, df.columns != 'Date'],
                                                               training_data_fraction=0.8,
                                                               return_numpy=True,
+                                                              shuffle=False,
                                                               class_column_name='Target')
 
     X = min_max(X)
     X_train = min_max(X_train)
     X_test = min_max(X_test)
 
-    w = [0] * X.shape[1]
-    b = 0
-    optimizer = GDOptimizer(learning_rate=1e-2)
+    kernels = ['linear', 'polynomial', 'rbf']
+    for i in range(10):
+        start = time.time()
+        svm = BinaryKernelSVM(kernel='polynomial', degree=i)
+        svm.fit(X_train, Y_train)
+        end = time.time()
 
-    accuracy = lambda y_true, y_pred: binary_accuracy(y_true, y_pred, class_labels=[0, 1])
-    metrics_dict = {'accuracy': accuracy,
-                    'MSE': mean_squared_error}
+        test_acc = binary_accuracy(svm(X_test), Y_test)
 
-    model = LogisticRegression(w, b, optimizer)
-    metrics_history = model.fit(X_train, Y_train, num_epochs=20000, batch_size=len(X_train), compute_metrics=True,
-                                metrics_dict=metrics_dict)
+        train_acc = binary_accuracy(svm(X_train), Y_train)
 
-    fig, ax = plt.subplots()
+        print(f'Test accuracy degree {i}: {test_acc:.4f}, Train accuracy: {train_acc:.4f}')
 
-    ax.plot(range(len(metrics_history['MSE'])), metrics_history['MSE'])
-    ax.set_ylabel('Loss value')
+        train_time = end - start
 
-    ax2 = ax.twinx()
-    ax2.plot(range(len(metrics_history['accuracy'])), metrics_history['accuracy'], color='orange')
-    ax2.set_ylabel('Accuracy')
+        print(f"⏱️ Train time: {train_time:.4f} seconds")
 
-    ax.set_xlabel('Epoch')
+    sigma_values = [0.01, 0.05, 0.1, 0.2, 0.5, 1.0]
+    for i in sigma_values:
+        start = time.time()
+        svm = BinaryKernelSVM(kernel='rbf', sigma=i)
+        svm.fit(X_train, Y_train)
+        end = time.time()
 
-    plt.title('Learning curve')
-    plt.grid()
+        test_acc = binary_accuracy(svm(X_test), Y_test)
 
-    print(f'The final train accuracy: {metrics_history["accuracy"][-1]}%')
-    print(f'Test accuracy: {accuracy(model.decision_function(X_test), Y_test)}%')
+        train_acc = binary_accuracy(svm(X_train), Y_train)
 
-    plt.show()
+        print(f'Test accuracy sigma {i}: {test_acc:.4f}, Train accuracy: {train_acc:.4f}')
+
+        train_time = end - start
+
+        print(f"⏱️ Train time: {train_time:.4f} seconds")
