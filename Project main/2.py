@@ -101,7 +101,8 @@ def normalize(x):
 # Usage
 if __name__ == '__main__':
     df = fetch_data('SPY', '2015-01-01', '2023-12-31')
-    df['Target'] = np.where(df['Close'].shift(1) > df['Close'], 1, 0)
+    df['Trend'] = df['Close'].rolling(window=5).mean().shift(-1) > df['Close']
+    df['Target'] = df['Trend'].astype(int)
     df = compute_technical_indicators(df, 3, 14)
 
     features = ['SMA_14', 'EMA_14', 'RSI_14', 'Bollinger_Upper', 'Bollinger_Lower',
@@ -123,7 +124,7 @@ if __name__ == '__main__':
 
     w = [0] * X.shape[1]
     b = 0
-    optimizer = GDOptimizer(learning_rate=1e-2)
+    optimizer = GDOptimizer(learning_rate=1e-3)
 
     accuracy = lambda y_true, y_pred: binary_accuracy(y_true, y_pred, class_labels=[0, 1])
     metrics_dict = {'accuracy': accuracy,
