@@ -12,49 +12,49 @@ Finally, we implement a rule-based trading strategy that uses the model outputs 
 
 The following technical indicators are calculated and used as input features for the models:
 
-* $\textbf{Simple Moving Average (SMA)}:
-\[
+* Simple Moving Average (SMA):
+$\[
 \text{SMA}_n(t) = \frac{1}{n} \sum_{i=0}^{n-1} P_{t-i}
 \]$
 
-2. $\textbf{Exponential Moving Average (EMA)}:
-\[
+* Exponential Moving Average (EMA):
+$\[
 \text{EMA}_t = \alpha \cdot P_t + (1 - \alpha) \cdot \text{EMA}_{t-1}, \quad \alpha = \frac{2}{n+1}
 \]$
 
-3. $\textbf{Relative Strength Index (RSI)}:
-\[
+* Relative Strength Index (RSI):
+$\[
 \text{RSI}_t = 100 - \left( \frac{100}{1 + RS_t} \right), \quad RS_t = \frac{\text{Average Gain}}{\text{Average Loss}}
 \]$
 
-4. $\textbf{Bollinger Bands} (with window size \( n \) and standard deviation \( \sigma \)):
-\[
+* Bollinger Bands:
+$\[
 \text{Upper Band} = \text{SMA}_n + k \cdot \sigma_n, \quad
 \text{Lower Band} = \text{SMA}_n - k \cdot \sigma_n
 \]$
 
-5. $\textbf{Momentum}:
-\[
+* Momentum:
+$\[
 \text{Momentum}_n(t) = P_t - P_{t-n}
 \]$
 
-6. $\textbf{MACD (Moving Average Convergence Divergence)}:
-\[
+* MACD (Moving Average Convergence Divergence):
+$\[
 \text{MACD}_t = \text{EMA}_{12}(t) - \text{EMA}_{26}(t)
 \]$
 
-7. $\textbf{Daily Return}:
-\[
+* Daily Return:
+$\[
 r_t = \frac{P_t - P_{t-1}}{P_{t-1}}
 \]$
 
-8. $\textbf{Rolling Volatility} (e.g., 5-day standard deviation):
-\[
+* Rolling Volatility (e.g., 5-day standard deviation):
+$\[
 \sigma_t = \sqrt{\frac{1}{n} \sum_{i=0}^{n-1} (r_{t-i} - \bar{r})^2}
 \]$
 
-9. $\textbf{Lagged Returns}:
-\[
+* Lagged Returns:
+$\[
 r_{t-1},\ r_{t-2},\ \ldots,\ r_{t-k}
 \]$
 
