@@ -12,10 +12,7 @@ Finally, we implement a rule-based trading strategy that uses the model outputs 
 
 The following technical indicators are calculated and used as input features for the models:
 
-* Simple Moving Average (SMA):
-$\[
-\text{SMA}_n(t) = \frac{1}{n} \sum_{i=0}^{n-1} P_{t-i}
-\]$
+* Simple Moving Average (SMA): $\text{SMA}_n(t) = \frac{1}{n} \sum_{i=0}^{n-1} P_{t-i}$
 
 * Exponential Moving Average (EMA):
 $\[
