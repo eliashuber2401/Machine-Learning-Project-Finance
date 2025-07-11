@@ -16,17 +16,17 @@ The following technical indicators are calculated and used as input features for
    
 * Exponential Moving Average (EMA): $\text{EMA}_ t = \alpha \cdot P_t + (1 - \alpha) \cdot \text{EMA}_{t-1}, \quad \alpha = \frac{2}{n+1}$
 
-* Relative Strength Index (RSI):$\text{RSI}_ t = 100 - \left( \frac{100}{1 + RS_t} \right), \quad RS_t = \frac{\text{Average Gain}}{\text{Average Loss}}$
+* Relative Strength Index (RSI): $\text{RSI}_ t = 100 - \left( \frac{100}{1 + RS_t} \right), \quad RS_t = \frac{\text{Average Gain}}{\text{Average Loss}}$
 
-* Bollinger Bands:$
+* Bollinger Bands: $
 \text{Upper Band} = \text{SMA}_n + k \cdot \sigma_n, \quad
 \text{Lower Band} = \text{SMA}_n - k \cdot \sigma_n$
 
-* Momentum:$\text{Momentum}_ n (t) = P_t - P_{t-n}$
+* Momentum: $\text{Momentum}_ n (t) = P_t - P_{t-n}$
 
 * MACD (Moving Average Convergence Divergence): $\text{MACD}_ t = \text{EMA}_ {12}(t) - \text{EMA}_{26}(t)$
 
-* Daily Return:$r_t = \frac{P_t - P_{t-1}}{P_{t-1}}$
+* Daily Return: $r_t = \frac{P_t - P_{t-1}}{P_{t-1}}$
 
 * Rolling Volatility (e.g., 5-day standard deviation): $\sigma_t = \sqrt{\frac{1}{n} \sum_{i=0}^{n-1} (r_{t-i} - \bar{r})^2}$
 
