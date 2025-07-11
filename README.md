@@ -18,9 +18,8 @@ The following technical indicators are calculated and used as input features for
 
 * Relative Strength Index (RSI): $\text{RSI}_ t = 100 - \left( \frac{100}{1 + RS_t} \right), \quad RS_t = \frac{\text{Average Gain}}{\text{Average Loss}}$
 
-* Bollinger Bands: $
-\text{Upper Band} = \text{SMA}_n + k \cdot \sigma_n, \quad
-\text{Lower Band} = \text{SMA}_n - k \cdot \sigma_n$
+* Bollinger Bands: $\text{Upper Band} = \text{SMA}_n + k \cdot \sigma_n $,
+$\text{Lower Band} = \text{SMA}_n - k \cdot \sigma_n$
 
 * Momentum: $\text{Momentum}_ n (t) = P_t - P_{t-n}$
 
