@@ -14,6 +14,9 @@ The following technical indicators are calculated and used as input features for
 
 * Simple Moving Average (SMA): $\text{SMA}_{n(t)} \frac{1}{n} \sum$
 
+The SMA is defined as $ \text{SMA}_n(t) = \frac{1}{n} \sum_{i=0}^{n-1} P_{t-i} $.
+
+
 * Exponential Moving Average (EMA):
 $\[
 \text{EMA}_t = \alpha \cdot P_t + (1 - \alpha) \cdot \text{EMA}_{t-1}, \quad \alpha = \frac{2}{n+1}
