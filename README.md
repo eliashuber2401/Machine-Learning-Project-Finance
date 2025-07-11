@@ -13,218 +13,23 @@ Finally, we implement a rule-based trading strategy that uses the model outputs 
 The following technical indicators are calculated and used as input features for the models:
 
 * Simple Moving Average (SMA):
-SMA
-n
-=
-1
-n
-∑
-i
-=
-0
-n
-−
-1
-P
-t
-−
-i
-SMA 
-n
-​	
- = 
-n
-1
-​	
-  
-i=0
-∑
-n−1
-​	
- P 
-t−i
-​	
-Average of the closing prices over the last n days.
+
 * Exponential Moving Average (EMA):
-EMA
-t
-=
-α
-⋅
-P
-t
-+
-(
-1
-−
-α
-)
-⋅
-EMA
-t
-−
-1
-EMA 
-t
-​	
- =α⋅P 
-t
-​	
- +(1−α)⋅EMA 
-t−1
-​	
- 
-* More weight is given to recent prices, where 
-α
-=
-2
-n
-+
-1
-α= 
-n+1
-2
-​	
 
 * Relative Strength Index (RSI):
-RSI
-=
-100
-−
-(
-100
-1
-+
-R
-S
-)
-RSI=100−( 
-1+RS
-100
-​	
- )
-where 
-R
-S
-=
-avg gain
-avg loss
-RS= 
-avg loss
-avg gain
-​	
- , calculated over 14 days. RSI measures the speed and change of price movements.
+
 * Bollinger Bands:
-Consist of an upper and lower band based on standard deviation from a moving average:
-Upper Band
-=
-SMA
-+
-k
-⋅
-σ
-,
-Lower Band
-=
-SMA
-−
-k
-⋅
-σ
-Upper Band=SMA+k⋅σ,Lower Band=SMA−k⋅σ
-Indicates volatility and potential overbought/oversold conditions.
-* Momentum:
-Momentum
-n
-=
-P
-t
-−
-P
-t
-−
-n
-Momentum 
-n
-​	
- =P 
-t
-​	
- −P 
-t−n
-​	
- 
-* Measures the velocity of price changes.
-MACD (Moving Average Convergence Divergence):
-MACD
-=
-EMA
-12
-−
-EMA
-26
-MACD=EMA 
-12
-​	
- −EMA 
-26
-​	
- 
-Often paired with a signal line (9-day EMA of MACD) to identify potential buy/sell points.
+
+* Momentun:
+
+* MACD (Moving Average Convergence Divergence):
+
 * Daily Return:
-r
-t
-=
-P
-t
-−
-P
-t
-−
-1
-P
-t
-−
-1
-r 
-t
-​	
- = 
-P 
-t−1
-​	
- 
-P 
-t
-​	
- −P 
-t−1
-​	
- 
-​	
- 
+
 * Rolling Volatility (e.g., 5-day STD):
 Standard deviation of daily returns over a rolling window (e.g., 5 days) to measure market risk.
 * Lagged Returns:
-Lagged versions of the daily return (e.g., 
-r
-t
-−
-1
-,
-r
-t
-−
-2
-,
-…
-r 
-t−1
-​	
- ,r 
-t−2
-​	
- ,…) are used to capture temporal dependencies.
+
 🎯 Target Variable
 
 The classification target is defined as follows:
