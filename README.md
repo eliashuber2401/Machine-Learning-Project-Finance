@@ -12,7 +12,7 @@ Finally, we implement a rule-based trading strategy that uses the model outputs 
 
 The following technical indicators are calculated and used as input features for the models:
 
-Simple Moving Average (SMA):
+* Simple Moving Average (SMA):
 SMA
 n
 =
@@ -44,9 +44,8 @@ n−1
  P 
 t−i
 ​	
- 
 Average of the closing prices over the last n days.
-Exponential Moving Average (EMA):
+* Exponential Moving Average (EMA):
 EMA
 t
 =
@@ -75,7 +74,7 @@ t
 t−1
 ​	
  
-More weight is given to recent prices, where 
+* More weight is given to recent prices, where 
 α
 =
 2
@@ -86,8 +85,8 @@ n
 n+1
 2
 ​	
- .
-Relative Strength Index (RSI):
+
+* Relative Strength Index (RSI):
 RSI
 =
 100
@@ -115,7 +114,7 @@ avg loss
 avg gain
 ​	
  , calculated over 14 days. RSI measures the speed and change of price movements.
-Bollinger Bands:
+* Bollinger Bands:
 Consist of an upper and lower band based on standard deviation from a moving average:
 Upper Band
 =
@@ -134,7 +133,7 @@ k
 σ
 Upper Band=SMA+k⋅σ,Lower Band=SMA−k⋅σ
 Indicates volatility and potential overbought/oversold conditions.
-Momentum:
+* Momentum:
 Momentum
 n
 =
@@ -155,7 +154,7 @@ t
 t−n
 ​	
  
-Measures the velocity of price changes.
+* Measures the velocity of price changes.
 MACD (Moving Average Convergence Divergence):
 MACD
 =
@@ -172,7 +171,7 @@ MACD=EMA
 ​	
  
 Often paired with a signal line (9-day EMA of MACD) to identify potential buy/sell points.
-Daily Return:
+* Daily Return:
 r
 t
 =
@@ -204,9 +203,9 @@ t−1
  
 ​	
  
-Rolling Volatility (e.g., 5-day STD):
+* Rolling Volatility (e.g., 5-day STD):
 Standard deviation of daily returns over a rolling window (e.g., 5 days) to measure market risk.
-Lagged Returns:
+* Lagged Returns:
 Lagged versions of the daily return (e.g., 
 r
 t
