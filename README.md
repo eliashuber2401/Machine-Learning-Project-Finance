@@ -12,13 +12,11 @@ Finally, we implement a rule-based trading strategy that uses the model outputs 
 
 The following technical indicators are calculated and used as input features for the models:
 
-* Simple Moving Average (SMA): ```math
-\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
-```
-* 
+* Simple Moving Average (SMA): $$\text{SMA}_ n(t) =  \frac {1} {n}  \sum_{i=0}^{n-1} P_{t-i}$$
+   
 * Exponential Moving Average (EMA):
 $\[
-\text{EMA}_t = \alpha \cdot P_t + (1 - \alpha) \cdot \text{EMA}_{t-1}, \quad \alpha = \frac{2}{n+1}
+\text{EMA}_ t = \alpha \cdot P_t + (1 - \alpha) \cdot \text{EMA}_{t-1}, \quad \alpha = \frac{2}{n+1}
 \]$
 
 * Relative Strength Index (RSI):$\text{RSI}_t = 100 - \left( \frac{100}{1 + RS_t} \right), \quad RS_t = \frac{\text{Average Gain}}{\text{Average Loss}}$
