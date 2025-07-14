@@ -37,11 +37,12 @@ $\text{Lower Band} = \text{SMA}_n - k \cdot \sigma_n$
 We train and compare the performance of the following machine learning models:
 
 Logistic Regression
-A linear model for binary classification that estimates the probability of an upward move.
+We implement Logistic Regression as it is done in the lecture, but add lasso regularization to further improve the results and prevent oveerfitting. 
 Kernel Support Vector Machine (SVM)
-A non-linear classifier that finds an optimal decision boundary using a kernel function.
+For SVM we try linear, polynomial and rbf kernels with different parameters for the last two, to decide which model works best in a stock environment.
 Multilayer Neural Network
-A feedforward neural network with one or more hidden layers, capable of learning complex patterns in the data.
+We train a neural network with 2 hidden layers, and try to achieve better results than the other two models, while neglecting runtime, to test the limit of the technical indicators.
+
 ## 💡 Trading Strategy
 
 Using the predictions from the models, we implement a basic trading strategy:
