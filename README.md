@@ -38,8 +38,10 @@ We train and compare the performance of the following machine learning models:
 
 **Logistic Regression:**  
 We implement Logistic Regression as it is done in the lecture, but add lasso regularization to further improve the results and prevent oveerfitting.   
+  
 **Kernel Support Vector Machine (SVM):**  
-For SVM we try linear, polynomial and rbf kernels with different parameters for the last two, to decide which model works best in a stock environment.  
+For SVM we try linear, polynomial and rbf kernels with different parameters for the last two, to decide which model works best in a stock environment.
+  
 **Multilayer Neural Network:**  
 We train a neural network with 2 hidden layers, and try to achieve better results than the other two models, while neglecting runtime, to test the limit of the technical indicators.  
 
