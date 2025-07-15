@@ -10,9 +10,12 @@ Finally, we implement a rule-based trading strategy that uses the model outputs 
 
 ## Packages
 
-
+To use our code you need the following packages:
 ```setup
-pip install -r yfinance
+pip install yfinance
+```
+```setup
+pip install seaborn
 ```
 
 ## 📊 Technical Indicators
