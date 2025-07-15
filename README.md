@@ -8,6 +8,13 @@ The goal of this project is to classify the next-day movement of a stock or inde
 
 Finally, we implement a rule-based trading strategy that uses the model outputs to make long/short decisions.
 
+## Packages
+
+
+```setup
+pip install -r yfinance
+```
+
 ## 📊 Technical Indicators
 
 The following technical indicators are calculated and used as input features for the models:
