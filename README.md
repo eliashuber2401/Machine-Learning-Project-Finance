@@ -22,7 +22,9 @@ pip install seaborn
 
 ## Usage
 
-The code can be run from Top to bottom, but there is the possibility to skip either single plots, that you are not interested in, or even entire Models, if you just want to check a certain one. The current values in the model are the ones, used to get the results for the paper. Apart from the usual variables like learning rate or the number of epochs, the code allows to change the number of indicators. When calling the return_data funtion you have the choice to select just indicators with high correlation or mutual information(relevance) with the target variable. 
+Before trying any models in the ´Testing Models and Analysis´ Chapter, you have the code till the end of the ´Data creation´ Chapter. 
+
+The code can be run from Top to bottom, but there is the possibility to skip either single plots, that you are not interested in, or even entire Models, if you just want to check a certain one. The current values in the model are the ones, used to get the results for the paper. Apart from the usual variables like learning rate or the number of epochs, the code allows to change the selection of indicators or the type of regularization of the logistic regression. When calling the return_data funtion you have the choice to select just indicators with high correlation or mutual information(relevance) with the target variable. 
 
 ## 📊 Technical Indicators
 
