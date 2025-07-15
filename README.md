@@ -52,3 +52,9 @@ Using the predictions from the models, we implement a basic trading strategy:
 Long position when the model predicts an upward move.
 Short or neutral position when the model predicts a downward move.
 The strategy’s performance is evaluated against a simple buy-and-hold benchmark to test whether the model can provide a predictive edge in real-world trading.
+
+## Packages and Usage
+
+For the code we use the courselib library, the packages we used in the lecture, yfinance for the stock data and seaborn for better visuals on the confusion matrices.
+
+The code is run can be run from Top to bottom, but there is the possibility to skip either single plots, that you are not interested in, or even entire Models, if you just want to check a certain one.
