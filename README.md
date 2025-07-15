@@ -62,6 +62,7 @@ For SVM we try linear, polynomial and rbf kernels with different parameters for 
 We train a neural network with 2 hidden layers, and try to achieve better results than the other two models, while neglecting runtime, to test the limit of the technical indicators.  
 
 ## 💡 Trading Strategy
+The trading strategy will focus on the Daily Return and trade on a daily base. We will use RBF SVM and Logistic Regression to predict the movement on a daily base. 
 
 Using the predictions from the models, we implement a basic trading strategy:
 
