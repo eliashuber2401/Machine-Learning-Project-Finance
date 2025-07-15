@@ -10,6 +10,8 @@ Finally, we implement a rule-based trading strategy that uses the model outputs 
 
 ## Packages
 
+For the code we use the courselib library, the packages we used in the lecture, yfinance for the stock data and seaborn for better visuals on the confusion matrices.
+
 To use our code you need the following packages:
 ```setup
 pip install yfinance
@@ -17,6 +19,10 @@ pip install yfinance
 ```setup
 pip install seaborn
 ```
+
+## Usage
+
+The code can be run from Top to bottom, but there is the possibility to skip either single plots, that you are not interested in, or even entire Models, if you just want to check a certain one. The current values in the model are the ones, used to get the results for the paper. Apart from the usual variables like learning rate or the number of epochs, the code allows to change the number of indicators. When calling the return_data funtion you have the choice to select just indicators with high correlation or mutual information(relevance) with the target variable. 
 
 ## 📊 Technical Indicators
 
@@ -63,8 +69,3 @@ Long position when the model predicts an upward move.
 Short or neutral position when the model predicts a downward move.
 The strategy’s performance is evaluated against a simple buy-and-hold benchmark to test whether the model can provide a predictive edge in real-world trading.
 
-## Packages and Usage
-
-For the code we use the courselib library, the packages we used in the lecture, yfinance for the stock data and seaborn for better visuals on the confusion matrices.
-
-The code is run can be run from Top to bottom, but there is the possibility to skip either single plots, that you are not interested in, or even entire Models, if you just want to check a certain one.
