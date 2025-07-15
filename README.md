@@ -8,6 +8,22 @@ The goal of this project is to classify the next-day movement of a stock or inde
 
 Finally, we implement a rule-based trading strategy that uses the model outputs to make long/short decisions.
 
+## Packages
+
+For the code we use the courselib library, the packages we used in the lecture, yfinance for the stock data and seaborn for better visuals on the confusion matrices.
+
+To use our code you need the following packages:
+```setup
+pip install yfinance
+```
+```setup
+pip install seaborn
+```
+
+## Usage
+
+The code can be run from Top to bottom, but there is the possibility to skip either single plots, that you are not interested in, or even entire Models, if you just want to check a certain one. The current values in the model are the ones, used to get the results for the paper. Apart from the usual variables like learning rate or the number of epochs, the code allows to change the number of indicators. When calling the return_data funtion you have the choice to select just indicators with high correlation or mutual information(relevance) with the target variable. 
+
 ## 📊 Technical Indicators
 
 The following technical indicators are calculated and used as input features for the models:
@@ -37,7 +53,7 @@ $\text{Lower Band} = \text{SMA}_n - k \cdot \sigma_n$
 We train and compare the performance of the following machine learning models:
 
 **Logistic Regression:**  
-We implement Logistic Regression as it is done in the lecture, but add lasso regularization to further improve the results and prevent oveerfitting.   
+We implement Logistic Regression as it is done in the lecture, but add lasso and ridge regularization to further improve the results and prevent oveerfitting.   
   
 **Kernel Support Vector Machine (SVM):**  
 For SVM we try linear, polynomial and rbf kernels with different parameters for the last two, to decide which model works best in a stock environment.
@@ -53,8 +69,3 @@ Long position when the model predicts an upward move.
 Short or neutral position when the model predicts a downward move.
 The strategy’s performance is evaluated against a simple buy-and-hold benchmark to test whether the model can provide a predictive edge in real-world trading.
 
-## Packages and Usage
-
-For the code we use the courselib library, the packages we used in the lecture, yfinance for the stock data and seaborn for better visuals on the confusion matrices.
-
-The code is run can be run from Top to bottom, but there is the possibility to skip either single plots, that you are not interested in, or even entire Models, if you just want to check a certain one.
