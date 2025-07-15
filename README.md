@@ -37,7 +37,7 @@ $\text{Lower Band} = \text{SMA}_n - k \cdot \sigma_n$
 We train and compare the performance of the following machine learning models:
 
 **Logistic Regression:**  
-We implement Logistic Regression as it is done in the lecture, but add lasso regularization to further improve the results and prevent oveerfitting.   
+We implement Logistic Regression as it is done in the lecture, but add lasso and ridge regularization to further improve the results and prevent oveerfitting.   
   
 **Kernel Support Vector Machine (SVM):**  
 For SVM we try linear, polynomial and rbf kernels with different parameters for the last two, to decide which model works best in a stock environment.
