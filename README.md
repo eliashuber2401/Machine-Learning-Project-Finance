@@ -22,7 +22,7 @@ pip install seaborn
 
 ## Usage
 
-The File containing our project is Predictor-copy2 in the Project main folder.
+The File containing our project is Predictor - copy 2.ipynb in the Project main folder.
 
 Before trying any models in the ´Testing Models and Analysis´ Chapter, you have the code till the end of the ´Data creation´ Chapter. 
 
